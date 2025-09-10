@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+	<div class="card-body">
+		<table class="table table-responsive-md table-hover mb-0">
+			<thead>
+				<tr>
+					{% for item in fields %}
+						<th>{{ item }}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in items %}
+					<tr>
+						{% for key, value in item %}
+							{% if value.timestamp is defined %}
+								<td>{{ value|date('d/m/Y H:i:s') }}</td>
+							{% else %}
+								<td>{{ value }}</td>
+							{% endif %}
+						{% endfor %}
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
+
+{% block specific_vendor %}
+{% endblock %}
