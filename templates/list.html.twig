@@ -1,30 +1,78 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-	<div class="card-body">
-		<table class="table table-responsive-md table-hover mb-0">
-			<thead>
-				<tr>
-					{% for item in fields %}
-						<th>{{ item }}</th>
-					{% endfor %}
-				</tr>
-			</thead>
-			<tbody>
-				{% for item in items %}
-					<tr>
-						{% for key, value in item %}
-							{% if value.timestamp is defined %}
-								<td>{{ value|date('d/m/Y H:i:s') }}</td>
-							{% else %}
-								<td>{{ value }}</td>
-							{% endif %}
-						{% endfor %}
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
+    <div class="card-body">
+        <form action="{{ path('app_list', {'entity': 'customer'}) }}" method="GET" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Buscar clientes por nombre o CIF..." value="{{ app.request.query.get('q') }}">
+                <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+            </div>
+        </form>
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        {% for item in fields %}
+                            <th>{{ item }}</th>
+                        {% endfor %}
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.cif }}</td>
+                            <td>{{ item.address }}</td>
+                            <td>{{ item.postal }}</td>
+                            <td>{{ item.location }}</td>
+                            <td>{{ item.country }}</td>
+                            <td>{{ item.notes }}</td>
+                            <td>{{ item.getDateAdd() ? item.getDateAdd()|date('d/m/Y H:i:s') : '' }}</td>
+                            <td>{{ item.getDateEdit() ? item.getDateEdit()|date('d/m/Y H:i:s') : '' }}</td>
+                            <td>
+                                <a href="{{ path('app_customer_edit', {'id': item.id}) }}" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{{ path('app_customer_delete', {'id': item.id}) }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar este cliente?');">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <nav>
+                <ul class="pagination">
+                    {% set current = page %}
+                    {% set url = path('app_list', {'entity': 'customer'}) ~ (app.request.query.get('q') ? '&q=' ~ app.request.query.get('q') : '') %}
+
+                    <li class="page-item {% if current == 1 %}disabled{% endif %}">
+                        <a class="page-link" href="{{ url ~ '&page=1' }}">Primera</a>
+                    </li>
+                    <li class="page-item {% if current == 1 %}disabled{% endif %}">
+                        <a class="page-link" href="{{ url ~ '&page=' ~ (current - 1) }}">Anterior</a>
+                    </li>
+
+                    {% for i in 1..totalPages %}
+                        <li class="page-item {% if i == current %}active{% endif %}">
+                            <a class="page-link" href="{{ url ~ '&page=' ~ i }}">{{ i }}</a>
+                        </li>
+                    {% endfor %}
+                    
+                    <li class="page-item {% if current == totalPages %}disabled{% endif %}">
+                        <a class="page-link" href="{{ url ~ '&page=' ~ (current + 1) }}">Siguiente</a>
+                    </li>
+                    <li class="page-item {% if current == totalPages %}disabled{% endif %}">
+                        <a class="page-link" href="{{ url ~ '&page=' ~ totalPages }}">Última</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 {% endblock %}
 
 {% block specific_vendor %}

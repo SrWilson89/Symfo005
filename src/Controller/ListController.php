@@ -2,21 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Customer;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
-use App\Entity\Customer;
-
-use Doctrine\ORM\EntityManagerInterface;
 
 final class ListController extends AbstractController
 {
     #[Route('/list/{entity}', name: 'app_list')]
-    public function list(string $entity, EntityManagerInterface $em): Response
+    public function list(string $entity, EntityManagerInterface $em, Request $request): Response
     {
         $name = "";
-        $items = array();
         $fields["customer"][] = "id";
         $fields["customer"][] = "name";
         $fields["customer"][] = "cif";
@@ -27,10 +25,14 @@ final class ListController extends AbstractController
         $fields["customer"][] = "notes";
         $fields["customer"][] = "date_add";
         $fields["customer"][] = "date_edit";
-
+    
+        $searchTerm = $request->query->get('q');
+        $page = $request->query->getInt('page', 1);
+        $limit = 25;
+    
         switch ($entity) {
             case 'customer':
-                $items = $em->getRepository(Customer::class)->findAll();
+                $paginator = $em->getRepository(Customer::class)->paginateBySearchTerm($searchTerm, $page, $limit);
                 $name = "Listado Clientes";
                 break;
             
@@ -38,31 +40,17 @@ final class ListController extends AbstractController
                 die("Error! No se localizó la entidad: ".$entity);
                 break;
         }
-
+    
+        $totalPages = ceil(count($paginator) / $limit);
+    
         return $this->render('list.html.twig', [
-            "items" => $this->convertObjectsToArrays($items),
+            "items" => $paginator,
             "fields" => $fields[$entity],
-            "name" => $name
+            "name" => $name,
+            "totalPages" => $totalPages,
+            "page" => $page,
+            "limit" => $limit,
+            "totalItems" => count($paginator)
         ]);
-    }
-
-    private function convertObjectsToArrays($items) {
-        $return = [];
-        foreach ($items as $item) {
-            $return[] = [
-                'id' => $item->getId(),
-                'name' => $item->getName(),
-                'cif' => $item->getCif(),
-                'address' => $item->getAddress(),
-                'postal' => $item->getPostal(),
-                'location' => $item->getLocation(),
-                'country' => $item->getCountry(),
-                'notes' => $item->getNotes(),
-                'date_add' => $item->getDateAdd() ? $item->getDateAdd()->format('Y-m-d H:i:s') : null,
-                'date_edit' => $item->getDateEdit() ? $item->getDateEdit()->format('Y-m-d H:i:s') : null,
-            ];
-        }
-        
-        return $return;
     }
 }

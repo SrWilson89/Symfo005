@@ -13,9 +13,13 @@ use Symfony\Component\Routing\Attribute\Route;
 class CustomerFormController extends AbstractController
 {
     #[Route('/customer/new', name: 'app_customer_new')]
-    public function new(Request $request, EntityManagerInterface $em): Response
+    #[Route('/customer/edit/{id}', name: 'app_customer_edit')]
+    public function form(Request $request, EntityManagerInterface $em, Customer $customer = null): Response
     {
-        $customer = new Customer();
+        if (!$customer) {
+            $customer = new Customer();
+        }
+
         $form = $this->createForm(CustomerType::class, $customer);
 
         $form->handleRequest($request);
@@ -30,5 +34,18 @@ class CustomerFormController extends AbstractController
         return $this->render('customer_form/new.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/customer/delete/{id}', name: 'app_customer_delete')]
+    public function delete(EntityManagerInterface $em, Customer $customer): Response
+    {
+        if (!$customer) {
+            throw $this->createNotFoundException('Cliente no encontrado.');
+        }
+
+        $em->remove($customer);
+        $em->flush();
+
+        return $this->redirectToRoute('app_list', ['entity' => 'customer']);
     }
 }
