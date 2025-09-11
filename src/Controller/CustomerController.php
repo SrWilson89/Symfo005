@@ -33,4 +33,34 @@ class CustomerController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/customer/{id}/edit', name: 'app_customer_edit')]
+    public function edit(Request $request, Customer $customer, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(CustomerType::class, $customer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $customer->setDateEdit(new \DateTime());
+            $em->flush();
+
+            return $this->redirectToRoute('app_list', ['entity' => 'customer']);
+        }
+
+        return $this->render('customer/edit.html.twig', [
+            'name' => 'Editar Cliente',
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/customer/{id}/delete', name: 'app_customer_delete', methods: ['GET', 'POST'])]
+    public function delete(Request $request, Customer $customer, EntityManagerInterface $em): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $customer->getId(), $request->request->get('_token'))) {
+            $em->remove($customer);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('app_list', ['entity' => 'customer']);
+    }
 }
