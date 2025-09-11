@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use App\Form\EditUserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,14 +21,11 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Hash the password
             $hashedPassword = $passwordHasher->hashPassword(
                 $user,
                 $user->getPassword()
             );
             $user->setPassword($hashedPassword);
-
-            // Set the creation date
             $user->setDateAdd(new \DateTime());
             
             $em->persist($user);
@@ -43,24 +39,23 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    
+
     #[Route('/user/{id}/edit', name: 'app_user_edit')]
     public function edit(Request $request, User $user, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, [
+            'password_required' => false
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Handle password update only if it's provided
-            $plainPassword = $form->get('password')->getData();
-            if ($plainPassword) {
+            if ($form->get('password')->getData()) {
                 $hashedPassword = $passwordHasher->hashPassword(
                     $user,
-                    $plainPassword
+                    $form->get('password')->getData()
                 );
                 $user->setPassword($hashedPassword);
             }
-
             $user->setDateEdit(new \DateTime());
             $em->flush();
 
