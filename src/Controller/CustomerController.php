@@ -2,32 +2,35 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
-
 use App\Entity\Customer;
-
+use App\Form\CustomerType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-final class CustomerController extends AbstractController
+class CustomerController extends AbstractController
 {
-    #[Route('/load', name: 'app_dummy')]
-    public function load(EntityManagerInterface $em): Response
+    #[Route('/customer/new', name: 'app_customer_new')]
+    public function new(Request $request, EntityManagerInterface $em): Response
     {
-        for ($i = 0; $i < 10000; $i++) {
-            $item = new Customer();
-            $item->setName("Cliente ".$i);
-            $item->setCif("00000000A");
-            $item->setAddress("Dirección Clinte ".$i);
-            $item->setPostal("00000");
-            $item->setLocation("Localidad ".$i);
-            $item->setCountry("ESPAÑA");
-            $item->setNotes("Nota del Cliente ".$i);
-            $em->persist($item);
-        }
-        $em->flush();
+        $customer = new Customer();
+        $form = $this->createForm(CustomerType::class, $customer);
+        $form->handleRequest($request);
 
-        die("Cargado");
+        if ($form->isSubmitted() && $form->isValid()) {
+            $customer->setDateAdd(new \DateTime());
+            
+            $em->persist($customer);
+            $em->flush();
+
+            return $this->redirectToRoute('app_list', ['entity' => 'customer']);
+        }
+
+        return $this->render('customer/new.html.twig', [
+            'name' => 'Nuevo Cliente',
+            'form' => $form->createView(),
+        ]);
     }
 }

@@ -4,10 +4,9 @@ namespace App\Form;
 
 use App\Entity\Customer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class CustomerType extends AbstractType
 {
@@ -15,32 +14,37 @@ class CustomerType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nombre del Cliente',
-                'attr' => ['placeholder' => 'Ej: Juan Pérez']
+                'label' => 'Nombre',
+                'attr' => ['class' => 'form-control']
             ])
             ->add('cif', TextType::class, [
                 'label' => 'CIF',
-                'attr' => ['placeholder' => 'Ej: B12345678']
+                'attr' => ['class' => 'form-control'],
+                'required' => false
             ])
             ->add('address', TextType::class, [
                 'label' => 'Dirección',
-                'attr' => ['placeholder' => 'Ej: C/ Falsa, 123']
+                'attr' => ['class' => 'form-control'],
+                'required' => false
             ])
             ->add('postal', TextType::class, [
                 'label' => 'Código Postal',
-                'attr' => ['placeholder' => 'Ej: 28001']
+                'attr' => ['class' => 'form-control'],
+                'required' => false
             ])
             ->add('location', TextType::class, [
                 'label' => 'Localidad',
-                'attr' => ['placeholder' => 'Ej: Madrid']
+                'attr' => ['class' => 'form-control'],
+                'required' => false
             ])
             ->add('country', TextType::class, [
                 'label' => 'País',
-                'attr' => ['placeholder' => 'Ej: España']
+                'attr' => ['class' => 'form-control'],
+                'required' => false
             ])
-            ->add('notes', TextareaType::class, [
+            ->add('notes', TextType::class, [
                 'label' => 'Notas',
-                'attr' => ['placeholder' => 'Escribe aquí algunas notas sobre el cliente...'],
+                'attr' => ['class' => 'form-control'],
                 'required' => false
             ]);
     }
