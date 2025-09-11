@@ -3,25 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\CustomerRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
-#[ORM\HasLifecycleCallbacks]
 class Customer
 {
-    #[ORM\PrePersist]
-    public function setDateAddValue(): void
-    {
-        $this->date_add = new \DateTime();
-        $this->date_edit = new \DateTime();
-    }
-
-    #[ORM\PreUpdate]
-    public function setDateEditValue(): void
-    {
-        $this->date_edit = new \DateTime();
-    }
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -30,29 +17,29 @@ class Customer
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $cif = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $address = null;
 
-    #[ORM\Column(length: 6)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $postal = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $location = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $country = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $notes = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTime $date_add = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateAdd = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTime $date_edit = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateEdit = null;
 
     public function getId(): ?int
     {
@@ -76,7 +63,7 @@ class Customer
         return $this->cif;
     }
 
-    public function setCif(string $cif): static
+    public function setCif(?string $cif): static
     {
         $this->cif = $cif;
 
@@ -88,7 +75,7 @@ class Customer
         return $this->address;
     }
 
-    public function setAddress(string $address): static
+    public function setAddress(?string $address): static
     {
         $this->address = $address;
 
@@ -100,7 +87,7 @@ class Customer
         return $this->postal;
     }
 
-    public function setPostal(string $postal): static
+    public function setPostal(?string $postal): static
     {
         $this->postal = $postal;
 
@@ -112,7 +99,7 @@ class Customer
         return $this->location;
     }
 
-    public function setLocation(string $location): static
+    public function setLocation(?string $location): static
     {
         $this->location = $location;
 
@@ -124,7 +111,7 @@ class Customer
         return $this->country;
     }
 
-    public function setCountry(string $country): static
+    public function setCountry(?string $country): static
     {
         $this->country = $country;
 
@@ -143,26 +130,26 @@ class Customer
         return $this;
     }
 
-    public function getDateAdd(): ?\DateTime
+    public function getDateAdd(): ?\DateTimeInterface
     {
-        return $this->date_add;
+        return $this->dateAdd;
     }
 
-    public function setDateAdd(\DateTime $date_add): static
+    public function setDateAdd(?\DateTimeInterface $dateAdd): self
     {
-        $this->date_add = $date_add;
+        $this->dateAdd = $dateAdd;
 
         return $this;
     }
 
-    public function getDateEdit(): ?\DateTime
+    public function getDateEdit(): ?\DateTimeInterface
     {
-        return $this->date_edit;
+        return $this->dateEdit;
     }
 
-    public function setDateEdit(\DateTime $date_edit): static
+    public function setDateEdit(?\DateTimeInterface $dateEdit): self
     {
-        $this->date_edit = $date_edit;
+        $this->dateEdit = $dateEdit;
 
         return $this;
     }

@@ -5,10 +5,14 @@ namespace App\Repository;
 use App\Entity\Customer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * @extends ServiceEntityRepository<Customer>
+ *
+ * @method Customer|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Customer|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Customer[]    findAll()
+ * @method Customer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class CustomerRepository extends ServiceEntityRepository
 {
@@ -17,22 +21,25 @@ class CustomerRepository extends ServiceEntityRepository
         parent::__construct($registry, Customer::class);
     }
 
-    /**
-     * @return Paginator Returns a Paginator object
-     */
-    public function paginateBySearchTerm(?string $term, int $page = 1, int $limit = 25): Paginator
+    public function getMonthlyCustomerCount(): array
     {
-        $qb = $this->createQueryBuilder('c')
-            ->orderBy('c.id', 'ASC')
-            ->setFirstResult(($page - 1) * $limit)
-            ->setMaxResults($limit);
+        $qb = $this->createQueryBuilder('c');
+        $result = $qb->select('SUBSTRING(c.dateAdd, 6, 2) AS month', 'COUNT(c.id) AS total')
+            ->groupBy('month')
+            ->orderBy('month', 'ASC')
+            ->getQuery()
+            ->getArrayResult();
 
-        if ($term) {
-            $qb->andWhere($qb->expr()->like('c.name', ':term'))
-               ->orWhere($qb->expr()->like('c.cif', ':term'))
-               ->setParameter('term', '%'.$term.'%');
+        $data = [];
+        $monthNames = [
+            '01' => 'Jan', '02' => 'Feb', '03' => 'Mar', '04' => 'Apr', '05' => 'May', '06' => 'Jun',
+            '07' => 'Jul', '08' => 'Aug', '09' => 'Sep', '10' => 'Oct', '11' => 'Nov', '12' => 'Dec'
+        ];
+
+        foreach ($result as $row) {
+            $data[] = [$monthNames[$row['month']], (int) $row['total']];
         }
 
-        return new Paginator($qb);
+        return $data;
     }
 }

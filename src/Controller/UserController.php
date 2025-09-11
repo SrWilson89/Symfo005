@@ -78,4 +78,10 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_list', ['entity' => 'user']);
     }
+    
+    #[Route('/user/profile', name: 'app_user_profile')]
+    public function profile(): Response
+    {
+        return $this->render('user/profile.html.twig');
+    }
 }
