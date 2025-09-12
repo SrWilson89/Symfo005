@@ -63,4 +63,33 @@ class CustomerController extends AbstractController
 
         return $this->redirectToRoute('app_list', ['entity' => 'customer']);
     }
+
+    public function findBySearchTerm(string $term, int $page, int $limit): array
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults($limit)
+            ->setFirstResult(($page - 1) * $limit);
+
+        if (!empty($term)) {
+            $qb->andWhere('c.name LIKE :term OR c.cif LIKE :term')
+                ->setParameter('term', '%' . $term . '%');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function countBySearchTerm(string $term): int
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('COUNT(c.id)');
+
+        if (!empty($term)) {
+            $qb->andWhere('c.name LIKE :term OR c.cif LIKE :term')
+                ->setParameter('term', '%' . $term . '%');
+        }
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
 }

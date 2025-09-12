@@ -38,28 +38,31 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
-//    /**
-//     * @return User[] Returns an array of User objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('u.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findBySearchTerm(string $term, int $page, int $limit): array
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->orderBy('u.id', 'ASC')
+            ->setMaxResults($limit)
+            ->setFirstResult(($page - 1) * $limit);
 
-//    public function findOneBySomeField($value): ?User
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        if (!empty($term)) {
+            $qb->andWhere('u.email LIKE :term')
+                ->setParameter('term', '%' . $term . '%');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function countBySearchTerm(string $term): int
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('COUNT(u.id)');
+
+        if (!empty($term)) {
+            $qb->andWhere('u.email LIKE :term')
+                ->setParameter('term', '%' . $term . '%');
+        }
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }
