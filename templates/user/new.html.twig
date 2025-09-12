@@ -1,15 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block content %}
-    <div class="card">
-        <div class="card-header">
-            <strong>{{ name }}</strong>
-        </div>
-        <div class="card-body">
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <button class="btn btn-primary mt-3">Crear usuario</button>
-            {{ form_end(form) }}
-        </div>
-    </div>
+{% block title %}Crear nuevo usuario{% endblock %}
+
+{% block body %}
+    <h1>Crear nuevo usuario</h1>
+
+    {{ include('user/_form.html.twig') }}
+
+    <a href="{{ path('app_user_index') }}">Volver al listado</a>
 {% endblock %}

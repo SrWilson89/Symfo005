@@ -17,14 +17,14 @@
             </tr>
         </thead>
         <tbody>
-        {% for user in entities %}
+        {% for entity in entities %}
             <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>{{ entity.id }}</td>
+                <td>{{ entity.email }}</td>
+                <td>{{ entity.roles ? entity.roles|json_encode : '' }}</td>
                 <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn btn-sm btn-info">Ver</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{{ path('app_user_show', {'id': entity.id}) }}" class="btn btn-sm btn-info">Ver</a>
+                    <a href="{{ path('app_user_edit', {'id': entity.id}) }}" class="btn btn-sm btn-warning">Editar</a>
                 </td>
             </tr>
         {% else %}
