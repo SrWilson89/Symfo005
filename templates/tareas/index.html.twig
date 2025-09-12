@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear nueva Tarea{% endblock %}
+
+{% block body %}
+    <h1>Crear nueva Tarea</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.empresa_id) }}
+        {{ form_row(form.estado_id) }}
+        {{ form_row(form.dtcreacion) }}
+        {{ form_row(form.dtcierre) }}
+        {{ form_row(form.notas) }}
+        {{ form_row(form.user_id) }}
+        <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_list', {'entity': 'tareas'}) }}" class="btn btn-secondary mt-3">Volver a la lista</a>
+{% endblock %}

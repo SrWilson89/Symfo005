@@ -1,60 +1,182 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}App Unitel{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        {% block stylesheets %}
-        {% endblock %}
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">App Unitel</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_list', {'entity': 'customer'}) }}">Clientes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_list', {'entity': 'user'}) }}">Usuarios</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        {% if app.user %}
-                            <li class="nav-item">
-                                <span class="nav-link text-white-50">Bienvenido, {{ app.user.email }}</span>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_logout') }}">
-                                    <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-                                </a>
-                            </li>
-                        {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_login') }}">
-                                    <i class="fas fa-sign-in-alt"></i> Iniciar sesión
-                                </a>
-                            </li>
-                        {% endif %}
-                    </ul>
+<!doctype html>
+<html class="fixed">
+<head>
+    <meta charset="UTF-8">
+    <title>App_Unitel</title>
+    <meta name="keywords" content="HTML5 Admin Template" />
+    <meta name="description" content="Porto Admin - Responsive HTML5 Template">
+    <meta name="author" content="okler.net">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="/assets/vendor/animate/animate.css">
+    <link rel="stylesheet" href="/assets/vendor/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="/assets/vendor/magnific-popup/magnific-popup.css" />
+    <link rel="stylesheet" href="/assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" />
+    <link rel="stylesheet" href="/assets/vendor/owl.carousel/assets/owl.carousel.css" />
+    <link rel="stylesheet" href="/assets/vendor/owl.carousel/assets/owl.theme.default.css" />
+    <link rel="stylesheet" href="/assets/vendor/pnotify/pnotify.custom.css" />
+    <link rel="stylesheet" href="/assets/css/theme.css" />
+    <link rel="stylesheet" href="/assets/css/skins/default.css" />
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <script src="/assets/vendor/modernizr/modernizr.js"></script>
+    <script src="/assets/vendor/style-switcher/style.switcher.localstorage.js"></script>
+</head>
+<body>
+    <section class="body">
+        <header class="header">
+            <div class="logo-container">
+                <a href="{{ path('app_home') }}" class="logo">
+                    <img src="/assets/img/logo.png" width="75" height="35" alt="Porto Admin" />
+                </a>
+                <div class="d-md-none toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
+                    <i class="fas fa-bars" aria-label="Toggle sidebar"></i>
                 </div>
             </div>
-        </nav>
-        <div class="container mt-4">
-            {% block body %}
-                <div class="card">
-                    {% block content %}{% endblock %}
+            <div class="header-right">
+                <span class="separator"></span>
+                <div id="userbox" class="userbox">
+                    <a href="#" data-toggle="dropdown">
+                        <figure class="profile-picture">
+                            <img src="/assets/img/!logged-user.jpg" alt="Joseph Doe" class="rounded-circle" data-lock-picture="/assets/img/!logged-user.jpg" />
+                        </figure>
+                        {% if app.user %}
+                            <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
+                                <span class="name">{{ app.user.userIdentifier }}</span>
+                                <span class="role">administrator</span>
+                            </div>
+                        {% endif %}
+                        <i class="fa custom-caret"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <ul class="list-unstyled mb-2">
+                            <li class="divider"></li>
+                            <li>
+                                <a role="menuitem" tabindex="-1" href="{{ path('app_user_profile') }}"><i class="fas fa-user"></i> Mi Perfil</a>
+                            </li>
+                            <li>
+                                <a role="menuitem" tabindex="-1" href="{{ path('app_logout') }}"><i class="fas fa-power-off"></i> Salir</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            {% endblock %}
+            </div>
+        </header>
+        <div class="inner-wrapper">
+            <aside id="sidebar-left" class="sidebar-left">
+                <div class="sidebar-header">
+                    <div class="sidebar-title">
+                        Navigation
+                    </div>
+                    <div class="sidebar-toggle d-none d-md-block" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+                        <i class="fas fa-bars" aria-label="Toggle sidebar"></i>
+                    </div>
+                </div>
+                <div class="nano">
+                    <div class="nano-content">
+                        <nav id="menu" class="nav-main" role="navigation">
+                            <ul class="nav nav-main">
+                                <li class="nav-active">
+                                    <a class="nav-link" href="{{ path('app_home') }}">
+                                        <i class="fas fa-home" aria-hidden="true"></i>
+                                        <span>Panel de Control</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" href="{{ path('app_list', {'entity': 'customer'}) }}">
+                                        <i class="fas fa-users" aria-hidden="true"></i>
+                                        <span>Clientes</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" href="{{ path('app_list', {'entity': 'user'}) }}">
+                                        <i class="fas fa-user" aria-hidden="true"></i>
+                                        <span>Usuarios</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" href="{{ path('app_list', {'entity': 'Tareas'}) }}">
+                                        <i class="fas fa-tasks" aria-hidden="true"></i>
+                                        <span>Tareas</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" href="{{ path('app_list', {'entity': 'Estados'}) }}">
+                                        <i class="fas fa-list-ol" aria-hidden="true"></i>
+                                        <span>Estados</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" href="{{ path('app_list', {'entity': 'Hilo'}) }}">
+                                        <i class="fas fa-comment-dots" aria-hidden="true"></i>
+                                        <span>Hilos</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <hr class="separator" />
+                    </div>
+                    <script>
+                        // Maintain Scroll Position
+                        if (typeof localStorage !== 'undefined') {
+                            (function($) {
+                                $(document).ready(function() {
+                                    var $sidebarBody = $('#sidebar-left .nano-content');
+                                    var sidebarScrollTop = localStorage.getItem('sidebarScrollTop');
+                                    if (sidebarScrollTop) {
+                                        $sidebarBody.scrollTop(sidebarScrollTop);
+                                    }
+                                    $sidebarBody.on('scroll', function() {
+                                        localStorage.setItem('sidebarScrollTop', $sidebarBody.scrollTop());
+                                    });
+                                });
+                            })(jQuery);
+                        }
+                    </script>
+                </div>
+            </aside>
+            <section role="main" class="content-body">
+                <header class="page-header">
+                    <h2>Panel de Control</h2>
+                </header>
+                {% block content %}{% endblock %}
+            </section>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        {% block javascripts %}
-        {% endblock %}
-    </body>
+    </section>
+    <script src="/assets/vendor/jquery/jquery.js"></script>
+    <script src="/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+    <script src="/assets/vendor/popper/umd/popper.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="/assets/vendor/common/common.js"></script>
+    <script src="/assets/vendor/nanoscroller/nanoscroller.js"></script>
+    <script src="/assets/vendor/magnific-popup/jquery.magnific-popup.js"></script>
+    <script src="/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+    <script src="/assets/vendor/owl.carousel/owl.carousel.js"></script>
+    <script src="/assets/vendor/jquery-easypiechart/jquery.easypiechart.js"></script>
+    <script src="/assets/vendor/flot/jquery.flot.js"></script>
+    <script src="/assets/vendor/flot.tooltip/jquery.flot.tooltip.js"></script>
+    <script src="/assets/vendor/flot/jquery.flot.pie.js"></script>
+    <script src="/assets/vendor/flot/jquery.flot.categories.js"></script>
+    <script src="/assets/vendor/flot/jquery.flot.resize.js"></script>
+    <script src="/assets/vendor/jquery-sparkline/jquery.sparkline.js"></script>
+    <script src="/assets/vendor/raphael/raphael.js"></script>
+    <script src="/assets/vendor/morris/morris.js"></script>
+    <script src="/assets/vendor/gauge/gauge.js"></script>
+    <script src="/assets/vendor/snap.svg/snap.svg.js"></script>
+    <script src="/assets/vendor/liquid-meter/liquid.meter.js"></script>
+    <script src="/assets/vendor/jqvmap/jquery.vmap.js"></script>
+    <script src="/assets/vendor/jqvmap/data/jquery.vmap.sampledata.js"></script>
+    <script src="/assets/vendor/jqvmap/maps/jquery.vmap.world.js"></script>
+    <script src="/assets/vendor/jqvmap/maps/continents/jquery.vmap.africa.js"></script>
+    <script src="/assets/vendor/jqvmap/maps/continents/jquery.vmap.asia.js"></script>
+    <script src="/assets/vendor/jqvmap/maps/continents/jquery.vmap.australia.js"></script>
+    <script src="/assets/vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
+    <script src="/assets/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
+    <script src="/assets/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
+    <script src="/assets/js/theme.js"></script>
+    <script src="/assets/js/custom.js"></script>
+    <script src="/assets/js/theme.init.js"></script>
+    <script src="/assets/js/examples/examples.dashboard.js"></script>
+</body>
 </html>
