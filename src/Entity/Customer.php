@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\CustomerRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
@@ -11,145 +10,70 @@ class Customer
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(type: 'integer')]
+    private $id;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[ORM\Column(type: 'string', length: 255)]
+    private $nombre;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cif = null;
+    #[ORM\Column(type: 'string', length: 255)]
+    private $direccion;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $address = null;
+    #[ORM\Column(type: 'string', length: 255)]
+    private $telefono;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $postal = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $location = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $country = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $notes = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $dateAdd = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $dateEdit = null;
+    #[ORM\Column(type: 'string', length: 255)]
+    private $email;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getNombre(): ?string
     {
-        return $this->name;
+        return $this->nombre;
     }
 
-    public function setName(string $name): static
+    public function setNombre(string $nombre): self
     {
-        $this->name = $name;
+        $this->nombre = $nombre;
 
         return $this;
     }
 
-    public function getCif(): ?string
+    public function getDireccion(): ?string
     {
-        return $this->cif;
+        return $this->direccion;
     }
 
-    public function setCif(?string $cif): static
+    public function setDireccion(string $direccion): self
     {
-        $this->cif = $cif;
+        $this->direccion = $direccion;
 
         return $this;
     }
 
-    public function getAddress(): ?string
+    public function getTelefono(): ?string
     {
-        return $this->address;
+        return $this->telefono;
     }
 
-    public function setAddress(?string $address): static
+    public function setTelefono(string $telefono): self
     {
-        $this->address = $address;
+        $this->telefono = $telefono;
 
         return $this;
     }
 
-    public function getPostal(): ?string
+    public function getEmail(): ?string
     {
-        return $this->postal;
+        return $this->email;
     }
 
-    public function setPostal(?string $postal): static
+    public function setEmail(string $email): self
     {
-        $this->postal = $postal;
-
-        return $this;
-    }
-
-    public function getLocation(): ?string
-    {
-        return $this->location;
-    }
-
-    public function setLocation(?string $location): static
-    {
-        $this->location = $location;
-
-        return $this;
-    }
-
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-    public function setCountry(?string $country): static
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    public function getNotes(): ?string
-    {
-        return $this->notes;
-    }
-
-    public function setNotes(?string $notes): static
-    {
-        $this->notes = $notes;
-
-        return $this;
-    }
-
-    public function getDateAdd(): ?\DateTimeInterface
-    {
-        return $this->dateAdd;
-    }
-
-    public function setDateAdd(?\DateTimeInterface $dateAdd): self
-    {
-        $this->dateAdd = $dateAdd;
-
-        return $this;
-    }
-
-    public function getDateEdit(): ?\DateTimeInterface
-    {
-        return $this->dateEdit;
-    }
-
-    public function setDateEdit(?\DateTimeInterface $dateEdit): self
-    {
-        $this->dateEdit = $dateEdit;
+        $this->email = $email;
 
         return $this;
     }

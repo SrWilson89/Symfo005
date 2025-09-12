@@ -26,10 +26,10 @@
                 <td>{{ entity.direccion }}</td>
                 <td>{{ entity.telefono }}</td>
                 <td>{{ entity.email }}</td>
-                <td>
+                {# <td>
                     <a href="{{ path('app_customer_show', {'id': entity.id}) }}" class="btn btn-sm btn-info">Ver</a>
                     <a href="{{ path('app_customer_edit', {'id': entity.id}) }}" class="btn btn-sm btn-warning">Editar</a>
-                </td>
+                </td> #}
             </tr>
         {% else %}
             <tr>
