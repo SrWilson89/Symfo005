@@ -1,127 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block content %}
+{% block title %}Panel de Control{% endblock %}
+
+{% block body %}
+    <h1>Panel de Control</h1>
+
     <div class="row">
-        <div class="col-lg-6 mb-3">
-            <section class="card">
+        <div class="col-md-6 col-lg-3">
+            <section class="card card-featured-left card-featured-secondary mb-3">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-xl-8">
-                            <div class="chart-data-selector" id="salesSelectorWrapper">
-                                <h2>
-                                    Nuevos Clientes:
-                                </h2>
-
-                                <div id="salesSelectorItems" class="chart-data-selector-items mt-3">
-                                    <div class="chart chart-sm" data-sales-rel="Porto Admin" id="flotDashSales1" class="chart-active" style="height: 203px;"></div>
-                                    <script>
-                                        var flotDashSales1Data = [{
-                                            data: {{ monthlyCustomerData|raw }},
-                                            color: "#0088cc"
-                                        }];
-
-                                        // Resto del código del gráfico
-                                        var plot = $.plot('#flotDashSales1', flotDashSales1Data, {
-                                            series: {
-                                                lines: {
-                                                    show: true,
-                                                    fill: true,
-                                                    lineWidth: 1,
-                                                    fillColor: {
-                                                        colors: [ { opacity: 0.4 }, { opacity: 0.1 } ]
-                                                    }
-                                                },
-                                                points: {
-                                                    show: true
-                                                },
-                                                shadowSize: 0
-                                            },
-                                            grid: {
-                                                hoverable: true,
-                                                clickable: true,
-                                                borderColor: '#ccc',
-                                                borderWidth: 1,
-                                                labelMargin: 15,
-                                                backgroundColor: 'transparent'
-                                            },
-                                            yaxis: {
-                                                min: 0,
-                                                color: '#ccc',
-                                                font: {
-                                                    size: 10,
-                                                    color: '#999'
-                                                }
-                                            },
-                                            xaxis: {
-                                                mode: 'categories',
-                                                color: '#fff',
-                                                font: {
-                                                    size: 10,
-                                                    color: '#999'
-                                                }
-                                            },
-                                            legend: {
-                                                show: false
-                                            },
-                                            tooltip: true,
-                                            tooltipOpts: {
-                                                content: '%s: %y'
-                                            }
-                                        });
-
-                                    </script>
+                    <div class="widget-summary">
+                        <div class="widget-summary-col widget-summary-col-icon">
+                            <div class="summary-icon bg-secondary">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <div class="widget-summary-col">
+                            <div class="summary">
+                                <h4 class="title">Total de Usuarios</h4>
+                                <div class="info">
+                                    <strong class="amount">{{ totalUsers }}</strong>
                                 </div>
+                            </div>
+                            <div class="summary-footer">
+                                <a class="text-uppercase" href="{{ path('app_list', {'entity': 'user'}) }}">(Ver listado)</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
         </div>
-        <div class="col-md-6 col-lg-12 col-xl-6">
-            <div class="row">
-                <div class="col-md-12 mb-3">
-                    <section class="card h-100">
-                        <div class="card-body">
-                            <h4 class="card-title mt-2">Resumen de la aplicación</h4>
-                            <p>Bienvenido al panel de control de App Unitel.</p>
-                            <a href="{{ path('app_list', {'entity': 'customer'}) }}" class="btn btn-primary mt-3">Ver Clientes</a>
-                            <a href="{{ path('app_list', {'entity': 'user'}) }}" class="btn btn-secondary mt-3">Ver Usuarios</a>
-                        </div>
-                    </section>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <section class="card h-100">
-                        <div class="card-body bg-primary text-white">
-                            <div class="widget-summary">
-                                <div class="widget-summary-col">
-                                    <div class="summary">
-                                        <h4 class="title">Número de Clientes</h4>
-                                        <div class="info">
-                                            <strong class="amount">{{ customerCount }}</strong>
-                                        </div>
-                                    </div>
-                                </div>
+        <div class="col-md-6 col-lg-3">
+            <section class="card card-featured-left card-featured-primary mb-3">
+                <div class="card-body">
+                    <div class="widget-summary">
+                        <div class="widget-summary-col widget-summary-col-icon">
+                            <div class="summary-icon bg-primary">
+                                <i class="fas fa-handshake"></i>
                             </div>
                         </div>
-                    </section>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <section class="card h-100">
-                        <div class="card-body bg-secondary text-white">
-                            <div class="widget-summary">
-                                <div class="widget-summary-col">
-                                    <div class="summary">
-                                        <h4 class="title">Número de Usuarios</h4>
-                                        <div class="info">
-                                            <strong class="amount">{{ userCount }}</strong>
-                                        </div>
-                                    </div>
+                        <div class="widget-summary-col">
+                            <div class="summary">
+                                <h4 class="title">Total de Clientes</h4>
+                                <div class="info">
+                                    <strong class="amount">{{ totalCustomers }}</strong>
                                 </div>
                             </div>
+                            <div class="summary-footer">
+                                <a class="text-uppercase" href="{{ path('app_list', {'entity': 'customer'}) }}">(Ver listado)</a>
+                            </div>
                         </div>
-                    </section>
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
 {% endblock %}

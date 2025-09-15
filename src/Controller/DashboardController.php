@@ -2,32 +2,23 @@
 
 namespace App\Controller;
 
-use App\Repository\CustomerRepository;
 use App\Repository\UserRepository;
+use App\Repository\CustomerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractController
 {
-    #[Route('/', name: 'app_home')]
-    public function index(CustomerRepository $customerRepository, UserRepository $userRepository): Response
+    #[Route('/', name: 'app_dashboard')]
+    public function index(UserRepository $userRepository, CustomerRepository $customerRepository): Response
     {
-        if ($this->getUser()) {
-            $customerCount = $customerRepository->count([]);
-            $userCount = $userRepository->count([]);
-            $monthlyCustomerData = $customerRepository->getMonthlyCustomerCount();
+        $totalUsers = $userRepository->count([]);
+        $totalCustomers = $customerRepository->count([]);
 
-            return $this->render('dashboard/index.html.twig', [
-                'customerCount' => $customerCount,
-                'userCount' => $userCount,
-                'monthlyCustomerData' => json_encode($monthlyCustomerData),
-            ]);
-        }
-        
-        return $this->render('security/login.html.twig', [
-            'last_username' => '',
-            'error' => null,
+        return $this->render('dashboard/index.html.twig', [
+            'totalUsers' => $totalUsers,
+            'totalCustomers' => $totalCustomers,
         ]);
     }
 }
