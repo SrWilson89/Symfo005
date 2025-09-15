@@ -1,14 +1,17 @@
+{# templates/customer/new.html.twig #}
+
 {% extends 'base.html.twig' %}
 
-{% block content %}
+{% block body %}
     <div class="card">
         <div class="card-header">
-            <strong>{{ name }}</strong>
+            <strong>Nuevo Cliente</strong>
         </div>
         <div class="card-body">
             {{ form_start(form) }}
             {{ form_widget(form) }}
             <button class="btn btn-primary mt-3">Crear cliente</button>
+            <a href="{{ path('app_list', {'entity': 'customer'}) }}" class="btn btn-secondary mt-3">Volver a la lista</a>
             {{ form_end(form) }}
         </div>
     </div>
