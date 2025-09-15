@@ -1,0 +1,59 @@
+/* Add here all your CSS customizations */
+@media only screen and (max-width: 768px) {
+    /* Ocultar los encabezados de la tabla en pantallas pequeñas */
+    .responsive-table thead, .responsive-table th, .responsive-table td {
+        display: block;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    .responsive-table thead {
+        display: none;
+    }
+
+    /* Convertir cada fila en un "bloque" */
+    .responsive-table tr {
+        margin-bottom: 1.5rem;
+        border: 1px solid #dee2e6;
+        border-radius: 0.5rem;
+        display: block;
+        overflow: hidden;
+    }
+
+    /* Estilizar cada celda para que parezca una fila con su etiqueta */
+    .responsive-table td {
+        border: none;
+        border-bottom: 1px solid #e9ecef;
+        padding-left: 50% !important;
+        position: relative;
+        text-align: right;
+    }
+
+    .responsive-table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0.75rem;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        color: #6c757d;
+    }
+
+    /* Ocultar la etiqueta en la celda de acciones para no duplicarla */
+    .responsive-table td[data-label="Acciones"]:before {
+        content: "";
+        display: none;
+    }
+
+    /* Centrar las acciones en móviles */
+    .responsive-table td[data-label="Acciones"] {
+        text-align: center;
+        padding-left: 0 !important;
+    }
+
+}
+.table-responsive {
+    overflow-x: auto;
+}

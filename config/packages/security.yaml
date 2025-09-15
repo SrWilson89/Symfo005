@@ -23,6 +23,7 @@ security:
             custom_authenticator: App\Security\UserAuthenticator
 
     access_control:
+         - { path: ^/user/new, roles: PUBLIC_ACCESS }
          - { path: ^/customer, roles: ROLE_USER }
          - { path: ^/user, roles: ROLE_USER }
          - { path: ^/, roles: PUBLIC_ACCESS }
