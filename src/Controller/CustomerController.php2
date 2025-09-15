@@ -2,17 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Form\UserType;
-use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-class UserController extends AbstractController
+class CustomerController extends AbstractController
 {
     #[Route('/user/new', name: 'app_user_new')]
     public function new(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
@@ -83,6 +77,20 @@ class UserController extends AbstractController
     #[Route('/user/profile', name: 'app_user_profile')]
     public function profile(): Response
     {
-        return $this->render('user/profile.html.twig');
+        return $this->render('user/profile.html.twig', []);
+    }
+
+    #[Route('/list/{entity}', name: 'app_list')]
+    public function listUsers(string $entity, UserRepository $userRepository): Response
+    {
+        if ($entity === 'user') {
+            $users = $userRepository->findAll();
+        } else {
+            throw $this->createNotFoundException('La entidad solicitada no existe.');
+        }
+
+        return $this->render('user/list.html.twig', [
+            'users' => $users,
+        ]);
     }
 }

@@ -1,19 +1,39 @@
+{# templates/tareas/index.html.twig #}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Crear nueva Tarea{% endblock %}
+{% block title %}Lista de Tareas{% endblock %}
 
 {% block body %}
-    <h1>Crear nueva Tarea</h1>
+    <h1>Lista de Tareas</h1>
 
-    {{ form_start(form) }}
-        {{ form_row(form.empresa_id) }}
-        {{ form_row(form.estado_id) }}
-        {{ form_row(form.dtcreacion) }}
-        {{ form_row(form.dtcierre) }}
-        {{ form_row(form.notas) }}
-        {{ form_row(form.user_id) }}
-        <button type="submit" class="btn btn-primary mt-3">Guardar</button>
-    {{ form_end(form) }}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.id }}</td>
+                <td>{{ entity.titulo }}</td>
+                <td>{{ entity.descripcion }}</td>
+                <td>
+                    <a href="{{ path('app_tareas_edit', {'id': entity.id}) }}">editar</a>
+                    <a href="{{ path('app_tareas_delete', {'id': entity.id}) }}">eliminar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">No se encontraron tareas.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-    <a href="{{ path('app_list', {'entity': 'tareas'}) }}" class="btn btn-secondary mt-3">Volver a la lista</a>
+    <a href="{{ path('app_tareas_new') }}">Crear nueva tarea</a>
 {% endblock %}

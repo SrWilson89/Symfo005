@@ -33,7 +33,7 @@ final class EstadosController extends AbstractController
             $entityManager->persist($estado);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_estados_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_list', ['entity' => 'estados'], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('estados/new.html.twig', [
@@ -59,7 +59,7 @@ final class EstadosController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_estados_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_list', ['entity' => 'estados'], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('estados/edit.html.twig', [
@@ -76,6 +76,6 @@ final class EstadosController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_estados_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_list', ['entity' => 'estados'], Response::HTTP_SEE_OTHER);
     }
 }

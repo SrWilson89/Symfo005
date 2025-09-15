@@ -1,13 +1,13 @@
+{# templates/user/index.html.twig #}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Usuarios{% endblock %}
+{% block title %}Lista de Usuarios{% endblock %}
 
 {% block body %}
-    <h1>Listado de Usuarios</h1>
+    <h1>Lista de Usuarios</h1>
 
-    <a href="{{ path('app_user_new') }}" class="btn btn-primary mb-3">Crear nuevo usuario</a>
-
-    <table class="table table-striped table-hover">
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -21,17 +21,19 @@
             <tr>
                 <td>{{ entity.id }}</td>
                 <td>{{ entity.email }}</td>
-                <td>{{ entity.roles ? entity.roles|json_encode : '' }}</td>
+                <td>{{ entity.roles|join(', ') }}</td>
                 <td>
-                    <a href="{{ path('app_user_show', {'id': entity.id}) }}" class="btn btn-sm btn-info">Ver</a>
-                    <a href="{{ path('app_user_edit', {'id': entity.id}) }}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{{ path('app_user_edit', {'id': entity.id}) }}">editar</a>
+                    <a href="{{ path('app_user_delete', {'id': entity.id}) }}">eliminar</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">No se encontraron registros.</td>
+                <td colspan="4">No se encontraron usuarios.</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+
+    <a href="{{ path('app_user_new') }}">Crear nuevo usuario</a>
 {% endblock %}

@@ -33,7 +33,7 @@ final class HiloController extends AbstractController
             $entityManager->persist($hilo);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_hilo_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_list', ['entity' => 'hilo'], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('hilo/new.html.twig', [
@@ -59,7 +59,7 @@ final class HiloController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_hilo_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_list', ['entity' => 'hilo'], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('hilo/edit.html.twig', [
@@ -76,6 +76,6 @@ final class HiloController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_hilo_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_list', ['entity' => 'hilo'], Response::HTTP_SEE_OTHER);
     }
 }

@@ -1,39 +1,39 @@
+{# templates/hilo/index.html.twig #}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Hilo index{% endblock %}
+{% block title %}Lista de Hilos{% endblock %}
 
 {% block body %}
-    <h1>Hilo index</h1>
+    <h1>Lista de Hilos</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>DateAdd</th>
-                <th>DateMod</th>
-                <th>Notas</th>
-                <th>actions</th>
+                <th>Título</th>
+                <th>Fecha de Creación</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-        {% for hilo in hilos %}
+        {% for entity in entities %}
             <tr>
-                <td>{{ hilo.id }}</td>
-                <td>{{ hilo.dateAdd ? hilo.dateAdd|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ hilo.dateMod ? hilo.dateMod|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ hilo.notas }}</td>
+                <td>{{ entity.id }}</td>
+                <td>{{ entity.titulo }}</td>
+                <td>{{ entity.fechaCreacion|date('Y-m-d H:i:s') }}</td>
                 <td>
-                    <a href="{{ path('app_hilo_show', {'id': hilo.id}) }}">show</a>
-                    <a href="{{ path('app_hilo_edit', {'id': hilo.id}) }}">edit</a>
+                    <a href="{{ path('app_hilo_show', {'id': entity.id}) }}">mostrar</a>
+                    <a href="{{ path('app_hilo_edit', {'id': entity.id}) }}">editar</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="4">No se encontraron hilos.</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_hilo_new') }}">Create new</a>
+    <a href="{{ path('app_hilo_new') }}">Crear nuevo hilo</a>
 {% endblock %}
