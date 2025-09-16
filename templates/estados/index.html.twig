@@ -11,7 +11,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Nombre</th>
+                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -19,7 +19,7 @@
         {% for entity in entities %}
             <tr>
                 <td>{{ entity.id }}</td>
-                <td>{{ entity.nombre }}</td>
+                <td>{{ entity.estado }}</td>
                 <td>
                     <a href="{{ path('app_estados_show', {'id': entity.id}) }}">mostrar</a>
                     <a href="{{ path('app_estados_edit', {'id': entity.id}) }}">editar</a>

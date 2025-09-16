@@ -3,8 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Hilo;
-use App\Entity\tareas;
-use App\Entity\user;
+use App\Entity\Tareas;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,11 +19,11 @@ class HiloType extends AbstractType
             ->add('dateMod')
             ->add('notas')
             ->add('usuario', EntityType::class, [
-                'class' => user::class,
+                'class' => User::class,
                 'choice_label' => 'id',
             ])
             ->add('tarea', EntityType::class, [
-                'class' => tareas::class,
+                'class' => Tareas::class,
                 'choice_label' => 'id',
             ])
         ;
