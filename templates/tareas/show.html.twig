@@ -23,6 +23,18 @@
                 <th>DateEdit</th>
                 <td>{{ tarea.dateEdit ? tarea.dateEdit|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
+            <tr>
+                <th>Titulo</th>
+                <td>{{ tarea.titulo }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ tarea.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Fecha_limite</th>
+                <td>{{ tarea.fechaLimite ? tarea.fechaLimite|date('Y-m-d') : '' }}</td>
+            </tr>
         </tbody>
     </table>
 

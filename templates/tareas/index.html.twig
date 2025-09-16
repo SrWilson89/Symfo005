@@ -1,39 +1,45 @@
-{# templates/tareas/index.html.twig #}
-
 {% extends 'base.html.twig' %}
 
-{% block title %}Lista de Tareas{% endblock %}
+{% block title %}Tareas index{% endblock %}
 
 {% block body %}
-    <h1>Lista de Tareas</h1>
+    <h1>Tareas index</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Título</th>
-                <th>Descripción</th>
-                <th>Acciones</th>
+                <th>Notas</th>
+                <th>DateAdd</th>
+                <th>DateEdit</th>
+                <th>Titulo</th>
+                <th>Descripcion</th>
+                <th>Fecha_limite</th>
+                <th>actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for entity in entities %}
+        {% for tarea in entities %}
             <tr>
-                <td>{{ entity.id }}</td>
-                <td>{{ entity.titulo }}</td>
-                <td>{{ entity.descripcion }}</td>
+                <td>{{ tarea.id }}</td>
+                <td>{{ tarea.notas }}</td>
+                <td>{{ tarea.dateAdd ? tarea.dateAdd|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tarea.dateEdit ? tarea.dateEdit|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tarea.titulo }}</td>
+                <td>{{ tarea.descripcion }}</td>
+                <td>{{ tarea.fechaLimite ? tarea.fechaLimite|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_tareas_edit', {'id': entity.id}) }}">editar</a>
-                    <a href="{{ path('app_tareas_delete', {'id': entity.id}) }}">eliminar</a>
+                    <a href="{{ path('app_tareas_show', {'id': tarea.id}) }}">show</a>
+                    <a href="{{ path('app_tareas_edit', {'id': tarea.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">No se encontraron tareas.</td>
+                <td colspan="8">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_tareas_new') }}">Crear nueva tarea</a>
+    <a href="{{ path('app_tareas_new') }}">Create new</a>
 {% endblock %}

@@ -2,36 +2,45 @@
 
 namespace App\Form;
 
-use App\Entity\Tarea;
+use App\Entity\Customer;
+use App\Entity\Estados;
+use App\Entity\Tareas;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class TareaType extends AbstractType
+class TareasType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('empresa_id', TextType::class) // Basado en tu esquema de DB
-            ->add('estado_id', TextType::class) // Basado en tu esquema de DB
-            ->add('dtcreacion', DateTimeType::class, [
-                'widget' => 'single_text',
+            ->add('notas')
+            ->add('dateAdd')
+            ->add('dateEdit')
+            ->add('titulo')
+            ->add('descripcion')
+            ->add('fecha_limite')
+            ->add('estado', EntityType::class, [
+                'class' => Estados::class,
+                'choice_label' => 'id',
             ])
-            ->add('dtcierre', DateTimeType::class, [
-                'widget' => 'single_text',
+            ->add('cliente', EntityType::class, [
+                'class' => Customer::class,
+                'choice_label' => 'id',
             ])
-            ->add('notas', TextareaType::class)
-            ->add('user_id', TextType::class) // Basado en tu esquema de DB
+            ->add('usuario', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'id',
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Tarea::class,
+            'data_class' => Tareas::class,
         ]);
     }
 }

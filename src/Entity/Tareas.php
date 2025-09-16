@@ -32,6 +32,15 @@ class Tareas
     #[ORM\ManyToOne(inversedBy: 'tareas')]
     private ?User $usuario = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $titulo = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $descripcion = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTime $fecha_limite = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +114,42 @@ class Tareas
     public function setUsuario(?User $usuario): static
     {
         $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    public function getTitulo(): ?string
+    {
+        return $this->titulo;
+    }
+
+    public function setTitulo(string $titulo): static
+    {
+        $this->titulo = $titulo;
+
+        return $this;
+    }
+
+    public function getDescripcion(): ?string
+    {
+        return $this->descripcion;
+    }
+
+    public function setDescripcion(?string $descripcion): static
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    public function getFechaLimite(): ?\DateTime
+    {
+        return $this->fecha_limite;
+    }
+
+    public function setFechaLimite(?\DateTime $fecha_limite): static
+    {
+        $this->fecha_limite = $fecha_limite;
 
         return $this;
     }

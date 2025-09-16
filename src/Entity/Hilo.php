@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\HiloRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User; // <-- ¡Importante! 'U' mayúscula
 
 #[ORM\Entity(repositoryClass: HiloRepository::class)]
 class Hilo
@@ -13,82 +15,53 @@ class Hilo
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTime $dateAdd = null;
+    #[ORM\Column(length: 255)]
+    private ?string $titulo = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTime $dateMod = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $fechaCreacion = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $notas = null;
-
-    #[ORM\ManyToOne]
-    private ?user $usuario = null;
-
-    #[ORM\ManyToOne]
-    private ?tareas $tarea = null;
+    #[ORM\ManyToOne(targetEntity: User::class)] // <-- ¡Importante! 'U' mayúscula aquí también
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDateAdd(): ?\DateTime
+    public function getTitulo(): ?string
     {
-        return $this->dateAdd;
+        return $this->titulo;
     }
 
-    public function setDateAdd(?\DateTime $dateAdd): static
+    public function setTitulo(string $titulo): static
     {
-        $this->dateAdd = $dateAdd;
+        $this->titulo = $titulo;
 
         return $this;
     }
 
-    public function getDateMod(): ?\DateTime
+    public function getFechaCreacion(): ?\DateTimeInterface
     {
-        return $this->dateMod;
+        return $this->fechaCreacion;
     }
 
-    public function setDateMod(?\DateTime $dateMod): static
+    public function setFechaCreacion(\DateTimeInterface $fechaCreacion): static
     {
-        $this->dateMod = $dateMod;
+        $this->fechaCreacion = $fechaCreacion;
 
         return $this;
     }
 
-    public function getNotas(): ?string
+    public function getUser(): ?User
     {
-        return $this->notas;
+        return $this->user;
     }
 
-    public function setNotas(?string $notas): static
+    public function setUser(?User $user): static
     {
-        $this->notas = $notas;
-
-        return $this;
-    }
-
-    public function getUsuario(): ?user
-    {
-        return $this->usuario;
-    }
-
-    public function setUsuario(?user $usuario): static
-    {
-        $this->usuario = $usuario;
-
-        return $this;
-    }
-
-    public function getTarea(): ?tareas
-    {
-        return $this->tarea;
-    }
-
-    public function setTarea(?tareas $tarea): static
-    {
-        $this->tarea = $tarea;
+        $this->user = $user;
 
         return $this;
     }
