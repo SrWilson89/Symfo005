@@ -17,17 +17,15 @@
     <link rel="stylesheet" href="/assets/vendor/owl.carousel/assets/owl.theme.default.css" />
     <link rel="stylesheet" href="/assets/vendor/pnotify/pnotify.custom.css" />
     <link rel="stylesheet" href="/assets/css/theme.css" />
-    <link rel="stylesheet" href="/assets/css/skins/default.css" />
     <link rel="stylesheet" href="/assets/css/custom.css">
     <script src="/assets/vendor/modernizr/modernizr.js"></script>
-    <script src="/assets/vendor/style-switcher/style.switcher.localstorage.js"></script>
 </head>
 <body>
     <section class="body">
         <header class="header">
             <div class="logo-container">
-                <a href="/" class="logo">
-                    <img src="/assets/img/logo.png" width="75" height="35" alt="Porto Admin" />
+                <a href="{{ path('app_dashboard') }}" class="logo">
+                    <img src="/assets/img/logo.png" width="75" alt="Porto Admin" />
                 </a>
                 <div class="d-md-none toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
                     <i class="fas fa-bars" aria-label="Toggle sidebar"></i>
@@ -36,13 +34,13 @@
             <div class="header-right">
                 <span class="separator"></span>
                 <div id="userbox" class="userbox">
-                    <a href="#" data-toggle="dropdown">
+                    <a href="#" data-bs-toggle="dropdown">
                         <figure class="profile-picture">
                             <img src="/assets/img/!logged-user.jpg" alt="Joseph Doe" class="rounded-circle" data-lock-picture="/assets/img/!logged-user.jpg" />
                         </figure>
                         <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
-                            <span class="name">email@ejemplo.com</span>
-                            <span class="role">administrator</span>
+                            <span class="name">{{ app.user.email }}</span>
+                            <span class="role">{{ app.user.roles[0] }}</span>
                         </div>
                         <i class="fa custom-caret"></i>
                     </a>
@@ -50,10 +48,10 @@
                         <ul class="list-unstyled mb-2">
                             <li class="divider"></li>
                             <li>
-                                <a role="menuitem" tabindex="-1" href="/user/profile"><i class="fas fa-user"></i> Mi Perfil</a>
+                                <a role="menuitem" tabindex="-1" href="{{ path('app_user_profile') }}"><i class="bx bx-user-circle"></i> Mi Perfil</a>
                             </li>
                             <li>
-                                <a role="menuitem" tabindex="-1" href="/logout"><i class="fas fa-power-off"></i> Salir</a>
+                                <a role="menuitem" tabindex="-1" href="{{ path('app_logout') }}"><i class="bx bx-power-off"></i> Cerrar sesión</a>
                             </li>
                         </ul>
                     </div>
@@ -74,43 +72,51 @@
                     <div class="nano-content">
                         <nav id="menu" class="nav-main" role="navigation">
                             <ul class="nav nav-main">
-                                <li class="nav-active">
-                                    <a class="nav-link" href="/">
-                                        <i class="fas fa-home" aria-hidden="true"></i>
-                                        <span>Panel de Control</span>
-                                    </a>
-                                </li>
                                 <li>
-                                    <a class="nav-link" href="/list/customer">
-                                        <i class="fas fa-users" aria-hidden="true"></i>
-                                        <span>Clientes</span>
+                                    <a class="nav-link" href="{{ path('app_dashboard') }}">
+                                        <i class="fas fa-tachometer-alt" aria-hidden="true"></i>
+                                        <span>Dashboard</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a class="nav-link" href="/list/user">
-                                        <i class="fas fa-user" aria-hidden="true"></i>
-                                        <span>Usuarios</span>
+                                <li class="nav-parent">
+                                    <a class="nav-link" href="#">
+                                        <i class="fas fa-chart-bar" aria-hidden="true"></i>
+                                        <span>Gestión</span>
                                     </a>
+                                    <ul class="nav nav-children">
+                                        <li>
+                                            <a class="nav-link" href="{{ path('app_list', {'entity': 'user'}) }}">
+                                                <i class="fas fa-users"></i>
+                                                Usuarios
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="{{ path('app_list', {'entity': 'customer'}) }}">
+                                                <i class="fas fa-handshake"></i>
+                                                Clientes
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="{{ path('app_list', {'entity': 'tareas'}) }}">
+                                                <i class="fas fa-tasks"></i>
+                                                Tareas <span class="badge badge-warning">En proceso</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="{{ path('app_list', {'entity': 'hilo'}) }}">
+                                                <i class="fas fa-comments"></i>
+                                                Hilos <span class="badge badge-warning">En proceso</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="{{ path('app_list', {'entity': 'estados'}) }}">
+                                                <i class="fas fa-stream"></i>
+                                                Estados <span class="badge badge-warning">En proceso</span>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                <li>
-                                    <a class="nav-link" href="/list/Tareas">
-                                        <i class="fas fa-tasks" aria-hidden="true"></i>
-                                        <span>Tareas</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="nav-link" href="/list/Estados">
-                                        <i class="fas fa-list-ol" aria-hidden="true"></i>
-                                        <span>Estados</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="nav-link" href="/list/Hilo">
-                                        <i class="fas fa-comment-dots" aria-hidden="true"></i>
-                                        <span>Hilos</span>
-                                    </a>
-                                </li>
-                            </ul>
+                                </ul>
                         </nav>
                         <hr class="separator" />
                     </div>
@@ -118,47 +124,60 @@
                         // Maintain Scroll Position
                         if (typeof localStorage !== 'undefined') {
                             (function($) {
-                                $(document).ready(function() {
-                                    var $sidebarBody = $('#sidebar-left .nano-content');
-                                    var sidebarScrollTop = localStorage.getItem('sidebarScrollTop');
-                                    if (sidebarScrollTop) {
-                                        $sidebarBody.scrollTop(sidebarScrollTop);
-                                    }
-                                    $sidebarBody.on('scroll', function() {
-                                        localStorage.setItem('sidebarScrollTop', $sidebarBody.scrollTop());
-                                    });
-                                });
+                                'use strict';
+                                var position = localStorage.getItem('sidebar-left-position');
+                                if (position !== null) {
+                                    $('.nano-content').scrollTop(position);
+                                }
                             })(jQuery);
                         }
                     </script>
                 </div>
             </aside>
             <section role="main" class="content-body">
+                <header class="page-header">
+                    <h2>{{ name|default('Panel de Control') }}</h2>
+                </header>
                 {% block body %}{% endblock %}
             </section>
         </div>
+        <aside id="sidebar-right" class="sidebar-right">
+            <div class="nano">
+                <div class="nano-content">
+                    <a href="#" class="mobile-close d-md-none">
+                        Collapse <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <div class="sidebar-right-wrapper">
+                        <div class="sidebar-widget widget-messages">
+                            <h6 class="mb-3">Mensajes</h6>
+                            <div class="widget-content">
+                                <ul class="list-unstyled">
+                                    <li class="pb-1">
+                                        <div class="text-secondary fw-bold">Juan Pérez</div>
+                                        <a href="#">
+                                            <small class="d-block text-muted line-height-200">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            </small>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
     </section>
     <script src="/assets/vendor/jquery/jquery.js"></script>
     <script src="/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
     <script src="/assets/vendor/popper/umd/popper.min.js"></script>
-    <script src="/assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script src="/assets/vendor/common/common.js"></script>
     <script src="/assets/vendor/nanoscroller/nanoscroller.js"></script>
     <script src="/assets/vendor/magnific-popup/jquery.magnific-popup.js"></script>
     <script src="/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
-    <script src="/assets/vendor/owl.carousel/owl.carousel.js"></script>
-    <script src="/assets/vendor/jquery-easypiechart/jquery.easypiechart.js"></script>
-    <script src="/assets/vendor/flot/jquery.flot.js"></script>
-    <script src="/assets/vendor/flot.tooltip/jquery.flot.tooltip.js"></script>
-    <script src="/assets/vendor/flot/jquery.flot.pie.js"></script>
-    <script src="/assets/vendor/flot/jquery.flot.categories.js"></script>
-    <script src="/assets/vendor/flot/jquery.flot.resize.js"></script>
-    <script src="/assets/vendor/jquery-sparkline/jquery.sparkline.js"></script>
-    <script src="/assets/vendor/raphael/raphael.js"></script>
     <script src="/assets/vendor/morris/morris.js"></script>
-    <script src="/assets/vendor/gauge/gauge.js"></script>
-    <script src="/assets/vendor/snap.svg/snap.svg.js"></script>
     <script src="/assets/vendor/liquid-meter/liquid.meter.js"></script>
     <script src="/assets/vendor/jqvmap/jquery.vmap.js"></script>
     <script src="/assets/vendor/jqvmap/data/jquery.vmap.sampledata.js"></script>
@@ -169,8 +188,12 @@
     <script src="/assets/vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
     <script src="/assets/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
     <script src="/assets/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
+    <script src="/assets/vendor/pnotify/pnotify.custom.js"></script>
+    <script src="/assets/vendor/jqvmap/maps/jquery.vmap.europe.js"></script>
+    <script src="/assets/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
+    <script src="/assets/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
+    <script src="/assets/vendor/pnotify/pnotify.custom.js"></script>
     <script src="/assets/js/theme.js"></script>
-    <script src="/assets/js/custom.js"></script>
     <script src="/assets/js/theme.init.js"></script>
     <script src="/assets/js/examples/examples.dashboard.js"></script>
 </body>

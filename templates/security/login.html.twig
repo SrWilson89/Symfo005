@@ -1,31 +1,91 @@
-{% extends 'base.html.twig' %}
+<!doctype html>
+<html class="fixed">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="HTML5 Admin Template" />
+		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
+		<meta name="author" content="okler.net">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" href="/assets/vendor/animate/animate.compat.css">
+		<link rel="stylesheet" href="/assets/vendor/font-awesome/css/all.min.css" />
+		<link rel="stylesheet" href="/assets/vendor/boxicons/css/boxicons.min.css" />
+		<link rel="stylesheet" href="/assets/vendor/magnific-popup/magnific-popup.css" />
+		<link rel="stylesheet" href="/assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" />
+		<link rel="stylesheet" href="/assets/css/theme.css" />
+		<link rel="stylesheet" href="/assets/css/skins/default.css" />
+		<link rel="stylesheet" href="/assets/css/custom.css">
+		<script src="/assets/vendor/modernizr/modernizr.js"></script>
+	</head>
+	<body>
+		<section class="body-sign">
+			<div class="center-sign">
+				<a href="/" class="logo float-start">
+					<img src="/assets/img/logo.png" height="54" alt="Porto Admin" />
+				</a>
 
-{% block content %}
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header text-center">
-                    <h5 class="mb-0">Iniciar Sesión</h5>
-                </div>
-                <div class="card-body">
-                    {% if error %}
-                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                    {% endif %}
+				<div class="panel card-sign">
+					<div class="card-title-sign mt-3 text-end">
+						<h2 class="title text-uppercase font-weight-bold m-0"><i class="bx bx-user-circle me-1 text-4 position-relative top-5"></i> Iniciar Sesión</h2>
+					</div>
+					<div class="card-body">
 
-                    <form method="post" action="{{ path('app_login') }}">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Correo electrónico</label>
-                            <input type="email" value="{{ last_username }}" name="email" id="email" class="form-control" autocomplete="email" required autofocus>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Contraseña</label>
-                            <input type="password" name="password" id="password" class="form-control" autocomplete="current-password" required>
-                        </div>
-                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                        <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-{% endblock %}
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+
+						<form action="{{ path('app_login') }}" method="post">
+							<div class="form-group mb-3">
+								<label>Correo Electrónico</label>
+								<div class="input-group">
+									<input name="_username" type="text" class="form-control form-control-lg" value="{{ last_username }}" required autofocus>
+									<span class="input-group-text">
+										<i class="bx bx-user text-4"></i>
+									</span>
+								</div>
+							</div>
+
+							<div class="form-group mb-3">
+								<div class="clearfix">
+									<label class="float-start">Contraseña</label>
+									<a href="{{ path('app_forgot_password_request') }}" class="float-end">¿Olvidaste la contraseña?</a>
+								</div>
+								<div class="input-group">
+									<input name="_password" type="password" class="form-control form-control-lg" required>
+									<span class="input-group-text">
+										<i class="bx bx-lock text-4"></i>
+									</span>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-8 text-end">
+									<button type="submit" class="btn btn-primary mt-2">Iniciar Sesión</button>
+								</div>
+							</div>
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+							<p class="text-center mt-3">¿No tienes una cuenta? <a href="{{ path('app_user_new') }}">¡Regístrate!</a></p>
+						</form>
+					</div>
+				</div>
+
+				<p class="text-center text-muted mt-3 mb-3">&copy; Copyright 2023. All Rights Reserved.</p>
+			</div>
+		</section>
+
+		<script src="/assets/vendor/jquery/jquery.js"></script>
+		<script src="/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+		<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+		<script src="/assets/vendor/common/common.js"></script>
+		<script src="/assets/vendor/nanoscroller/nanoscroller.js"></script>
+		<script src="/assets/vendor/magnific-popup/jquery.magnific-popup.js"></script>
+		<script src="/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+		<script src="/assets/js/theme.js"></script>
+		<script src="/assets/js/custom.js"></script>
+		<script src="/assets/js/theme.init.js"></script>
+
+	</body>
+</html>

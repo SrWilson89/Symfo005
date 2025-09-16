@@ -22,11 +22,19 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Se obtiene la contraseña del formulario (texto plano)
+            $plainPassword = $form->get('password')->getData();
+            
+            // Se encripta la contraseña
             $hashedPassword = $passwordHasher->hashPassword(
                 $user,
-                $user->getPassword()
+                $plainPassword
             );
             $user->setPassword($hashedPassword);
+            
+            // Se asigna el rol por defecto
+            $user->setRoles(['ROLE_USER']);
+
             $user->setDateAdd(new \DateTime());
             
             $em->persist($user);

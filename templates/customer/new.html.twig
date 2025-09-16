@@ -1,17 +1,20 @@
-{# templates/customer/new.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="card">
-        <div class="card-header">
-            <strong>Nuevo Cliente</strong>
+    <div class="card shadow-lg border-0 rounded-lg mt-5">
+        <div class="card-header bg-primary text-white text-center">
+            <h3 class="font-weight-light my-4">Nuevo Cliente</h3>
         </div>
         <div class="card-body">
             {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <button class="btn btn-primary mt-3">Crear cliente</button>
-            <a href="{{ path('app_list', {'entity': 'customer'}) }}" class="btn btn-secondary mt-3">Volver a la lista</a>
+            {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
+            {{ form_row(form.cif, {'attr': {'class': 'form-control'}}) }}
+            {{ form_row(form.address, {'attr': {'class': 'form-control'}}) }}
+            {{ form_row(form.phone, {'attr': {'class': 'form-control'}}) }}
+            <div class="d-flex justify-content-between mt-4">
+                <button class="btn btn-primary btn-block me-2">Crear cliente</button>
+                <a href="{{ path('app_list', {'entity': 'customer'}) }}" class="btn btn-secondary btn-block">Volver a la lista</a>
+            </div>
             {{ form_end(form) }}
         </div>
     </div>
