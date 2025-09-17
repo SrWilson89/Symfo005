@@ -30,6 +30,7 @@ class Tareas
     private ?Customer $cliente = null;
 
     #[ORM\ManyToOne(inversedBy: 'tareas')]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?User $usuario = null;
 
     #[ORM\Column(length: 255)]

@@ -1,20 +1,19 @@
+{# templates/customer/edit.html.twig #}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Editar Usuario{% endblock %}
+{% block title %}Editar Cliente{% endblock %}
 
 {% block body %}
-    <div class="card shadow-lg border-0 rounded-lg mt-5">
-        <div class="card-header bg-primary text-white text-center">
-            <h3 class="font-weight-light my-4">Editar Usuario</h3>
+    <div class="card">
+        <div class="card-header">
+            <strong>Editar Cliente: {{ customer.email }}</strong>
         </div>
         <div class="card-body">
             {{ form_start(form) }}
-            {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
-            {{ form_row(form.password, {'attr': {'class': 'form-control'}}) }}
-            <div class="d-flex justify-content-between mt-4">
-                <button class="btn btn-primary btn-block me-2">Guardar cambios</button>
-                <a href="{{ path('app_list', {'entity': 'user'}) }}" class="btn btn-secondary btn-block">Volver a la lista</a>
-            </div>
+            {{ form_widget(form) }}
+            <button class="btn btn-primary mt-3">Guardar cambios</button>
+            <a href="{{ path('app_list', {'entity': 'customer'}) }}" class="btn btn-secondary mt-3">Volver a la lista</a>
             {{ form_end(form) }}
         </div>
     </div>

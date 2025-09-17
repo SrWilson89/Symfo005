@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class UserController extends AbstractController
 {
@@ -24,19 +25,19 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // Se obtiene la contraseña del formulario (texto plano)
             $plainPassword = $form->get('password')->getData();
-            
+
             // Se encripta la contraseña
             $hashedPassword = $passwordHasher->hashPassword(
                 $user,
                 $plainPassword
             );
             $user->setPassword($hashedPassword);
-            
+
             // Se asigna el rol por defecto
             $user->setRoles(['ROLE_USER']);
 
             $user->setDateAdd(new \DateTime());
-            
+
             $em->persist($user);
             $em->flush();
 
@@ -87,10 +88,18 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_list', ['entity' => 'user']);
     }
-    
+
     #[Route('/user/profile', name: 'app_user_profile')]
     public function profile(): Response
     {
-        return $this->render('user/profile.html.twig');
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login'); // Redirige al login si no hay usuario
+        }
+
+        return $this->render('user/profile.html.twig', [
+            'user' => $user,
+        ]);
     }
 }

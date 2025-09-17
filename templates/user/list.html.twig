@@ -1,32 +1,45 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Lista de Usuarios</title>
-        
-        {# Estilos CSS #}
-        <link rel="stylesheet" href="{{ asset('assets/vendor/owl.carousel/assets/owl.carousel.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendor/owl.carousel/assets/owl.theme.default.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendor/pnotify/pnotify.custom.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendor/magnific-popup/magnific-popup.css') }}">
-        
-    </head>
-    <body>
-        <header>
-            {# Imagen de logo #}
-            <img src="{{ asset('assets/img/logo.png') }}" alt="Logo de la App">
-            
-            {# Imagen de usuario #}
-            <img src="{{ asset('assets/img/!logged-user.jpg') }}" alt="Usuario Logueado">
-        </header>
+{% extends 'base.html.twig' %}
 
-        <h1>Lista de Usuarios</h1>
+{% block title %}Lista de Usuarios{% endblock %}
 
-        {# Contenido de la página... #}
+{% block body %}
+    <h1>Lista de Usuarios</h1>
 
-        {# Scripts JS #}
-        <script src="{{ asset('assets/vendor/popper/umd/popper.min.js') }}"></script>
-        <script src="{{ asset('assets/vendor/style-switcher/style.switcher.localstorage.js') }}"></script>
-        <script src="{{ asset('assets/vendor/owl.carousel/owl.carousel.js') }}"></script>
-        <script src="{{ asset('assets/vendor/jquery-easypiechart/jquery.easypiechart.js') }}"></script>
-    </body>
-</html>
+    <a href="{{ path('app_user_new') }}" class="btn btn-success">Crear Nuevo Usuario</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% for role in user.roles %}
+                        {{ role }}
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-warning">Editar</a>
+
+                    <form method="post" action="{{ path('app_user_delete', {'id': user.id}) }}" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este usuario?');" style="display: inline-block;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">No se encontraron registros.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
