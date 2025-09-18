@@ -1,4 +1,10 @@
+{# templates/estados/_form.html.twig #}
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="mb-3">
+        {{ form_label(form.estado, 'Estado', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.estado, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <button class="btn btn-primary mt-3 w-100">{{ button_label|default('Guardar') }}</button>
 {{ form_end(form) }}
