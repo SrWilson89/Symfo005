@@ -3,128 +3,146 @@
 {% block title %}Panel de Control{% endblock %}
 
 {% block body %}
-    <h1>Panel de Control</h1>
+    <div class="container mt-5">
+        <div class="text-center mb-4">
+            <h1 class="fw-bold text-dark">Panel de Control</h1>
+        </div>
 
-    <div class="row">
-        <div class="col-md-6 col-lg-6">
-            <section class="card card-featured-left card-featured-secondary mb-3">
-                <div class="card-body">
-                    <div class="widget-summary">
-                        <div class="widget-summary-col widget-summary-col-icon">
-                            <div class="summary-icon bg-secondary">
-                                <i class="fas fa-users"></i>
-                            </div>
-                        </div>
-                        <div class="widget-summary-col">
-                            <div class="summary">
-                                <h4 class="title">Total de Usuarios</h4>
-                                <div class="info">
-                                    <strong class="amount">{{ totalUsers }}</strong>
+        <div class="row g-4">
+            <div class="col-12 col-sm-6 col-lg-3">
+                <section class="card h-100 shadow border-0 rounded-lg">
+                    <div class="card-body d-flex flex-column">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-secondary text-white">
+                                    <i class="fas fa-users"></i>
                                 </div>
                             </div>
-                            <div class="summary-footer mt-2">
-                                <a class="btn btn-outline-secondary btn-sm text-uppercase" href="{{ path('app_list', {'entity': 'user'}) }}">(Ver listado)</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-        <div class="col-md-6 col-lg-6">
-            <section class="card card-featured-left card-featured-primary mb-3">
-                <div class="card-body">
-                    <div class="widget-summary">
-                        <div class="widget-summary-col widget-summary-col-icon">
-                            <div class="summary-icon bg-primary">
-                                <i class="fas fa-handshake"></i>
-                            </div>
-                        </div>
-                        <div class="widget-summary-col">
-                            <div class="summary">
-                                <h4 class="title">Total de Clientes</h4>
-                                <div class="info">
-                                    <strong class="amount">{{ totalCustomers }}</strong>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title text-secondary">Total de Usuarios</h4>
+                                    <div class="info">
+                                        <strong class="amount fs-3">{{ totalUsers }}</strong>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="summary-footer mt-2">
-                                <a class="btn btn-outline-primary btn-sm text-uppercase" href="{{ path('app_list', {'entity': 'customer'}) }}">(Ver listado)</a>
-                            </div>
+                        </div>
+                        <div class="summary-footer mt-auto pt-2 text-center">
+                            <a class="btn btn-outline-secondary w-100 text-uppercase" href="{{ path('app_list', {'entity': 'user'}) }}">
+                                Ver listado
+                            </a>
                         </div>
                     </div>
-                </div>
-            </section>
-        </div>
-        <div class="col-md-6 col-lg-6">
-            <section class="card card-featured-left card-featured-quaternary mb-3">
-                <div class="card-body">
-                    <div class="widget-summary">
-                        <div class="widget-summary-col widget-summary-col-icon">
-                            <div class="summary-icon bg-quaternary">
-                                <i class="fas fa-tasks"></i>
-                            </div>
-                        </div>
-                        <div class="widget-summary-col">
-                            <div class="summary">
-                                <h4 class="title">Total de Tareas</h4>
-                                <div class="info">
-                                    <strong class="amount">{{ totalTareas }}</strong>
+                </section>
+            </div>
+            
+            <div class="col-12 col-sm-6 col-lg-3">
+                <section class="card h-100 shadow border-0 rounded-lg">
+                    <div class="card-body d-flex flex-column">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-primary text-white">
+                                    <i class="fas fa-handshake"></i>
                                 </div>
                             </div>
-                            <div class="summary-footer mt-2">
-                                <a class="btn btn-outline-quaternary btn-sm text-uppercase" href="{{ path('app_list', {'entity': 'tareas'}) }}">(Ver listado)</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-        <div class="col-md-6 col-lg-6">
-            <section class="card card-featured-left card-featured-tertiary mb-3">
-                <div class="card-body">
-                    <div class="widget-summary">
-                        <div class="widget-summary-col widget-summary-col-icon">
-                            <div class="summary-icon bg-tertiary">
-                                <i class="fas fa-comments"></i>
-                            </div>
-                        </div>
-                        <div class="widget-summary-col">
-                            <div class="summary">
-                                <h4 class="title">Total de Hilos</h4>
-                                <div class="info">
-                                    <strong class="amount">{{ totalHilos }}</strong>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title text-primary">Total de Clientes</h4>
+                                    <div class="info">
+                                        <strong class="amount fs-3">{{ totalCustomers }}</strong>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="summary-footer mt-2">
-                                <a class="btn btn-outline-tertiary btn-sm text-uppercase" href="{{ path('app_list', {'entity': 'hilo'}) }}">(Ver listado)</a>
-                            </div>
+                        </div>
+                        <div class="summary-footer mt-auto pt-2 text-center">
+                            <a class="btn btn-outline-primary w-100 text-uppercase" href="{{ path('app_list', {'entity': 'customer'}) }}">
+                                Ver listado
+                            </a>
                         </div>
                     </div>
-                </div>
-            </section>
-        </div>
-        <div class="col-md-6 col-lg-6">
-            <section class="card card-featured-left card-featured-info mb-3">
-                <div class="card-body">
-                    <div class="widget-summary">
-                        <div class="widget-summary-col widget-summary-col-icon">
-                            <div class="summary-icon bg-info">
-                                <i class="fas fa-info-circle"></i>
-                            </div>
-                        </div>
-                        <div class="widget-summary-col">
-                            <div class="summary">
-                                <h4 class="title">Total de Estados</h4>
-                                <div class="info">
-                                    <strong class="amount">{{ totalEstados }}</strong>
+                </section>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <section class="card h-100 shadow border-0 rounded-lg">
+                    <div class="card-body d-flex flex-column">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-success text-white">
+                                    <i class="fas fa-tasks"></i>
                                 </div>
                             </div>
-                            <div class="summary-footer mt-2">
-                                <a class="btn btn-outline-info btn-sm text-uppercase" href="{{ path('app_list', {'entity': 'estados'}) }}">(Ver listado)</a>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title text-success">Total de Tareas</h4>
+                                    <div class="info">
+                                        <strong class="amount fs-3">{{ totalTareas }}</strong>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div class="summary-footer mt-auto pt-2 text-center">
+                            <a class="btn btn-outline-success w-100 text-uppercase" href="{{ path('app_list', {'entity': 'tareas'}) }}">
+                                Ver listado
+                            </a>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
+            
+            <div class="col-12 col-sm-6 col-lg-3">
+                <section class="card h-100 shadow border-0 rounded-lg">
+                    <div class="card-body d-flex flex-column">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-info text-white">
+                                    <i class="fas fa-info-circle"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title text-info">Total de Estados</h4>
+                                    <div class="info">
+                                        <strong class="amount fs-3">{{ totalEstados }}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary-footer mt-auto pt-2 text-center">
+                            <a class="btn btn-outline-info w-100 text-uppercase" href="{{ path('app_list', {'entity': 'estados'}) }}">
+                                Ver listado
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="col-12 col-sm-6 col-lg-3">
+                <section class="card h-100 shadow border-0 rounded-lg">
+                    <div class="card-body d-flex flex-column">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-warning text-white">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title text-warning">Total de Hilos</h4>
+                                    <div class="info">
+                                        <strong class="amount fs-3">{{ totalHilos }}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary-footer mt-auto pt-2 text-center">
+                            <a class="btn btn-outline-warning w-100 text-uppercase" href="{{ path('app_list', {'entity': 'hilo'}) }}">
+                                Ver listado
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
 {% endblock %}
