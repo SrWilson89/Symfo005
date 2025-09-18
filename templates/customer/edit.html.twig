@@ -1,20 +1,52 @@
-{# templates/customer/edit.html.twig #}
+{# Archivo: templates/customer/new.html.twig o edit.html.twig #}
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Editar Cliente{% endblock %}
+{% block title %}
+    {# Título dinámico según la página #}
+    {% if app.request.attributes.get('_route') == 'app_customer_new' %}
+        Nuevo Cliente
+    {% else %}
+        Editar Cliente: {{ customer.nombre }}
+    {% endif %}
+{% endblock %}
 
 {% block body %}
-    <div class="card">
-        <div class="card-header">
-            <strong>Editar Cliente: {{ customer.email }}</strong>
-        </div>
-        <div class="card-body">
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <button class="btn btn-primary mt-3">Guardar cambios</button>
-            <a href="{{ path('app_list', {'entity': 'customer'}) }}" class="btn btn-secondary mt-3">Volver a la lista</a>
-            {{ form_end(form) }}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg border-0 rounded-lg">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h3 class="font-weight-light my-4">
+                            {% if app.request.attributes.get('_route') == 'app_customer_new' %}
+                                Nuevo Cliente
+                            {% else %}
+                                Editar Cliente
+                            {% endif %}
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        {{ form_widget(form) }}
+
+                        <div class="d-flex justify-content-between mt-4">
+                            {% if app.request.attributes.get('_route') == 'app_customer_new' %}
+                                <button type="submit" class="btn btn-success btn-block me-2">
+                                    <i class="fas fa-save me-2"></i>Crear Cliente
+                                </button>
+                            {% else %}
+                                <button type="submit" class="btn btn-primary btn-block me-2">
+                                    <i class="fas fa-save me-2"></i>Guardar Cambios
+                                </button>
+                            {% endif %}
+                            <a href="{{ path('app_list', {'entity': 'customer'}) }}" class="btn btn-secondary btn-block">
+                                <i class="fas fa-arrow-left me-2"></i>Volver a la lista
+                            </a>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

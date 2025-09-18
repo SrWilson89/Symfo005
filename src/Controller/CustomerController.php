@@ -30,16 +30,16 @@ class CustomerController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $customer->setDateAdd(new \DateTime());
             $em->persist($customer);
             $em->flush();
 
-            return $this->redirectToRoute('app_list', ['entity' => 'customer']);
+            return $this->redirectToRoute('app_customer_index');
         }
 
         return $this->render('customer/new.html.twig', [
             'name' => 'Nuevo Cliente',
-            'form' => $form->createView(),
+            'customer' => $customer,
+            'form' => $form,
         ]);
     }
 
@@ -51,12 +51,13 @@ class CustomerController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-            return $this->redirectToRoute('app_list', ['entity' => 'customer']);
+            return $this->redirectToRoute('app_customer_index');
         }
 
         return $this->render('customer/edit.html.twig', [
             'name' => 'Editar Cliente',
-            'form' => $form->createView(),
+            'customer' => $customer,
+            'form' => $form,
         ]);
     }
 
@@ -68,6 +69,6 @@ class CustomerController extends AbstractController
             $em->flush();
         }
 
-        return $this->redirectToRoute('app_list', ['entity' => 'customer']);
+        return $this->redirectToRoute('app_customer_index');
     }
 }

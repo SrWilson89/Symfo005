@@ -7,7 +7,7 @@
 
     {{ include('estados/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_estados_index') }}">back to list</a>
+    <a href="{{ path('app_list', {'entity': 'estados'}) }}">back to list</a>
 
     {{ include('estados/_delete_form.html.twig') }}
 {% endblock %}

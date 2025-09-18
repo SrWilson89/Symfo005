@@ -13,11 +13,13 @@
             </tr>
             <tr>
                 <th>DateAdd</th>
-                <td>{{ hilo.dateAdd ? hilo.dateAdd|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ hilo.dateAdd ?
+ hilo.dateAdd|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>DateMod</th>
-                <td>{{ hilo.dateMod ? hilo.dateMod|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ hilo.dateMod ?
+ hilo.dateMod|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>Notas</th>
@@ -26,7 +28,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_hilo_index') }}">back to list</a>
+    <a href="{{ path('app_list', {'entity': 'hilo'}) }}" class="btn btn-secondary">Volver a la lista</a>
 
     <a href="{{ path('app_hilo_edit', {'id': hilo.id}) }}">edit</a>
 

@@ -10,20 +10,20 @@ class Customer
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
+    #[ORM\Column]
+    private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $nombre;
+    #[ORM\Column(length: 255)]
+    private ?string $nombre = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $direccion;
+    #[ORM\Column(length: 255)]
+    private ?string $direccion = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $telefono;
+    #[ORM\Column(length: 255)]
+    private ?string $telefono = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $email;
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
 
     public function getId(): ?int
     {
@@ -35,7 +35,7 @@ class Customer
         return $this->nombre;
     }
 
-    public function setNombre(string $nombre): self
+    public function setNombre(string $nombre): static
     {
         $this->nombre = $nombre;
 
@@ -47,7 +47,7 @@ class Customer
         return $this->direccion;
     }
 
-    public function setDireccion(string $direccion): self
+    public function setDireccion(string $direccion): static
     {
         $this->direccion = $direccion;
 
@@ -59,7 +59,7 @@ class Customer
         return $this->telefono;
     }
 
-    public function setTelefono(string $telefono): self
+    public function setTelefono(string $telefono): static
     {
         $this->telefono = $telefono;
 
@@ -71,7 +71,7 @@ class Customer
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(string $email): static
     {
         $this->email = $email;
 

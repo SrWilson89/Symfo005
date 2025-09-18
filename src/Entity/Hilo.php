@@ -14,6 +14,12 @@ class Hilo
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $titulo = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $fechaCreacion = null;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateAdd = null;
 
@@ -24,6 +30,7 @@ class Hilo
     private ?string $notas = null;
 
     #[ORM\ManyToOne(inversedBy: 'hilos')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $usuario = null;
 
     #[ORM\ManyToOne(inversedBy: 'hilos')]
@@ -32,6 +39,30 @@ class Hilo
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getTitulo(): ?string
+    {
+        return $this->titulo;
+    }
+
+    public function setTitulo(string $titulo): static
+    {
+        $this->titulo = $titulo;
+
+        return $this;
+    }
+
+    public function getFechaCreacion(): ?\DateTimeInterface
+    {
+        return $this->fechaCreacion;
+    }
+
+    public function setFechaCreacion(\DateTimeInterface $fechaCreacion): static
+    {
+        $this->fechaCreacion = $fechaCreacion;
+
+        return $this;
     }
 
     public function getDateAdd(): ?\DateTimeInterface

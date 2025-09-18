@@ -7,7 +7,7 @@
 
     {{ include('hilo/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_hilo_index') }}">back to list</a>
+    <a href="{{ path('app_list', {'entity': 'hilo'}) }}" class="btn btn-secondary">Volver a la lista</a>
 
     {{ include('hilo/_delete_form.html.twig') }}
 {% endblock %}
