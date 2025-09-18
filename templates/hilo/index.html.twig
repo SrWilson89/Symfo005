@@ -1,39 +1,45 @@
-{# templates/hilo/index.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Lista de Hilos{% endblock %}
 
 {% block body %}
-    <h1>Lista de Hilos</h1>
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Lista de Hilos</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Título</th>
-                <th>Fecha de Creación</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td>{{ entity.id }}</td>
-                <td>{{ entity.titulo }}</td>
-                <td>{{ entity.fechaCreacion|date('Y-m-d H:i:s') }}</td>
-                <td>
-                    <a href="{{ path('app_hilo_show', {'id': entity.id}) }}">mostrar</a>
-                    <a href="{{ path('app_hilo_edit', {'id': entity.id}) }}">editar</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">No se encontraron hilos.</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="card shadow-sm p-4">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Id</th>
+                            <th>Título</th>
+                            <th>Fecha de Creación</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for hilo in entities %}
+                        <tr>
+                            <td>{{ hilo.id }}</td>
+                            <td>{{ hilo.titulo }}</td>
+                            <td>{{ hilo.fechaCreacion|date('Y-m-d H:i:s') }}</td>
+                            <td>
+                                <a href="{{ path('app_hilo_show', {'id': hilo.id}) }}" class="btn btn-info btn-sm">Mostrar</a>
+                                <a href="{{ path('app_hilo_edit', {'id': hilo.id}) }}" class="btn btn-warning btn-sm">Editar</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center">No se encontraron hilos.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-    <a href="{{ path('app_hilo_new') }}">Crear nuevo hilo</a>
+        <div class="d-flex justify-content-end mt-4">
+            <a href="{{ path('app_hilo_new') }}" class="btn btn-primary">Crear nuevo hilo</a>
+        </div>
+    </div>
 {% endblock %}

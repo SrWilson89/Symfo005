@@ -57,10 +57,12 @@
                         <ul class="list-unstyled mb-2">
                             <li class="divider"></li>
                             <li>
-                                {# Aquí se corrige la ruta del enlace #}
-                                <a role="menuitem" tabindex="-1" href="{{ path('app_user_show', {'id': app.user.id}) }}">
-                                    <i class="bx bx-user-circle"></i> Mi Perfil
-                                </a>
+                                {% if app.user %}
+    {# Aquí se corrige la ruta del enlace #}
+    <a role="menuitem" tabindex="-1" href="{{ path('app_user_show', {'id': app.user.id}) }}">
+        <i class="bx bx-user-circle"></i> Mi Perfil
+    </a>
+{% endif %}
                             </li>
                             <li>
                                 <a role="menuitem" tabindex="-1" href="{{ path('app_logout') }}">

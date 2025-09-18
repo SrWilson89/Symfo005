@@ -1,36 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hilo{% endblock %}
+{% block title %}Detalles del Hilo{% endblock %}
 
 {% block body %}
-    <h1>Hilo</h1>
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Detalles del Hilo</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ hilo.id }}</td>
-            </tr>
-            <tr>
-                <th>DateAdd</th>
-                <td>{{ hilo.dateAdd ?
- hilo.dateAdd|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>DateMod</th>
-                <td>{{ hilo.dateMod ?
- hilo.dateMod|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Notas</th>
-                <td>{{ hilo.notas }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="card shadow-sm p-4">
+            <table class="table table-hover table-bordered">
+                <tbody>
+                    <tr>
+                        <th class="w-25">Id</th>
+                        <td>{{ hilo.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Título</th>
+                        <td>{{ hilo.titulo }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Creación</th>
+                        <td>{{ hilo.fechaCreacion|date('Y-m-d H:i:s') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Edición</th>
+                        <td>{{ hilo.dateMod ? hilo.dateMod|date('Y-m-d H:i:s') : 'N/A' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Notas</th>
+                        <td>{{ hilo.notas|default('N/A') }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <a href="{{ path('app_list', {'entity': 'hilo'}) }}" class="btn btn-secondary">Volver a la lista</a>
-
-    <a href="{{ path('app_hilo_edit', {'id': hilo.id}) }}">edit</a>
-
-    {{ include('hilo/_delete_form.html.twig') }}
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{{ path('app_hilo_index') }}" class="btn btn-secondary">Volver a la lista</a>
+            <div class="btn-group" role="group">
+                <a href="{{ path('app_hilo_edit', {'id': hilo.id}) }}" class="btn btn-warning">Editar</a>
+                {{ include('hilo/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -1,4 +1,37 @@
+{# templates/hilo/_form.html.twig #}
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="mb-3">
+        {{ form_label(form.titulo, 'Título', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.titulo, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.fechaCreacion, 'Fecha de Creación', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.fechaCreacion, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.notas, 'Notas', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.notas, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.usuario, 'Usuario', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.usuario, {'attr': {'class': 'form-select'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.tarea, 'Tarea', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.tarea, {'attr': {'class': 'form-select'}}) }}
+    </div>
+    
+    {% if form.dateMod is defined %}
+        <div class="mb-3">
+            {{ form_label(form.dateMod, 'Fecha de Modificación', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.dateMod, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    {% endif %}
+
+    <button class="btn btn-primary mt-3 w-100">{{ button_label|default('Guardar') }}</button>
 {{ form_end(form) }}
