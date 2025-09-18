@@ -5,35 +5,50 @@
 {% block title %}Lista de Usuarios{% endblock %}
 
 {% block body %}
-    <h1>Lista de Usuarios</h1>
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="display-6">Lista de Usuarios</h1>
+            <a href="{{ path('app_user_new') }}" class="btn btn-success">
+                <i class="fas fa-user-plus me-2"></i>Crear Nuevo Usuario
+            </a>
+        </div>
 
-    <a href="{{ path('app_user_new') }}" class="btn btn-primary mb-3">Crear nuevo usuario</a>
-
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td>{{ entity.id }}</td>
-                <td>{{ entity.email }}</td>
-                <td>{{ entity.roles|join(', ') }}</td>
-                <td>
-                    <a href="{{ path('app_user_edit', {'id': entity.id}) }}" class="btn btn-sm btn-warning">editar</a>
-                    <a href="{{ path('app_user_delete', {'id': entity.id}) }}" class="btn btn-sm btn-danger">eliminar</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">No se encontraron usuarios.</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover shadow-sm rounded-lg">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Roles</th>
+                        <th scope="col" class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <th scope="row">{{ entity.id }}</th>
+                        <td>{{ entity.email }}</td>
+                        <td>{{ entity.roles|join(', ') }}</td>
+                        <td class="text-center">
+                            <a href="{{ path('app_user_edit', {'id': entity.id}) }}" class="btn btn-warning btn-sm" title="Editar">
+                                <i class="fas fa-edit"></i>Editar
+                            </a>
+                            
+                            <form method="post" action="{{ path('app_user_delete', {'id': entity.id}) }}" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este usuario?');" style="display: inline-block;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ entity.id) }}">
+                                <button type="submit" class="btn btn-danger btn-sm" title="Eliminar">
+                                    <i class="fas fa-trash-alt"></i>Eliminar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">No se encontraron usuarios.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

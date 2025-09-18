@@ -1,5 +1,20 @@
+{# templates/user/_form.html.twig #}
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    <div class="mb-3">
+        {{ form_label(form.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    
+    <div class="mb-3">
+        {{ form_label(form.roles, 'Roles', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.roles, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    
+    <div class="mb-3">
+        {{ form_label(form.password, 'Contraseña', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+    </div>
 
     <button class="btn btn-primary mt-3">{{ button_label|default('Guardar') }}</button>
 {{ form_end(form) }}
