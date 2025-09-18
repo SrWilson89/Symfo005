@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Tareas{% endblock %}
+{% block title %}Nueva Tarea{% endblock %}
 
 {% block body %}
-    <h1>Create new Tareas</h1>
-
-    {{ include('tareas/_form.html.twig') }}
-
-    <a href="{{ path('app_tareas_index') }}">back to list</a>
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Crear nueva Tarea</h1>
+        {{ include('tareas/_form.html.twig') }}
+        <div class="d-flex justify-content-end mt-4">
+            <a href="{{ path('app_tareas_index') }}" class="btn btn-secondary">Volver a la lista</a>
+        </div>
+    </div>
 {% endblock %}

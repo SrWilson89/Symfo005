@@ -1,4 +1,37 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="card shadow-sm p-4">
+    {{ form_start(form) }}
+        <div class="mb-3">
+            {{ form_row(form.titulo) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.descripcion) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.fecha_limite) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.notas) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.estado) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.cliente) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.usuario) }}
+        </div>
+        {% if form.dateAdd is defined %}
+            <div class="mb-3">
+                {{ form_row(form.dateAdd) }}
+            </div>
+        {% endif %}
+        {% if form.dateEdit is defined %}
+            <div class="mb-3">
+                {{ form_row(form.dateEdit) }}
+            </div>
+        {% endif %}
+
+        <button class="btn btn-primary mt-3 w-100">{{ button_label|default('Guardar') }}</button>
+    {{ form_end(form) }}
+</div>
