@@ -1,0 +1,55 @@
+PROYECTO: GESTIÓN DE CLIENTES EN SYMFONY
+
+---
+
+### Descripción General
+
+Este proyecto de Symfony implementa un sistema básico de gestión de clientes. Permite realizar las operaciones CRUD (Crear, Leer, Actualizar, Borrar) sobre la entidad 'Customer' (Cliente).
+
+---
+
+### Archivos y su Funcionalidad
+
+1.  **src/Controller/CustomerController.php**
+
+    * **Propósito:** Es el controlador principal que maneja todas las peticiones relacionadas con los clientes.
+    * **Rutas:**
+        * `/customer/`: Muestra el listado de todos los clientes.
+        * `/customer/new`: Maneja la creación de un nuevo cliente.
+        * `/customer/{id}/edit`: Permite editar un cliente existente.
+        * `/customer/{id}/delete`: Permite eliminar un cliente.
+
+2.  **src/Form/CustomerType.php**
+
+    * **Propósito:** Define la estructura y los campos del formulario para la creación y edición de clientes.
+    * **Campos:**
+        * Nombre
+        * Dirección
+        * Teléfono
+        * Email
+
+3.  **src/Entity/Customer.php**
+
+    * **Propósito:** Es la entidad que representa la tabla 'customer' en la base de datos.
+    * **Atributos:**
+        * id (clave primaria)
+        * nombre
+        * direccion
+        * telefono
+        * email
+
+4.  **templates/customer/index.html.twig**
+
+    * **Propósito:** Muestra la vista del listado de clientes en una tabla.
+    * **Características:**
+        * Muestra el ID, nombre y email de cada cliente.
+        * [cite_start]Incluye botones de 'Editar' y 'Eliminar' para cada fila[cite: 6, 9].
+        * [cite_start]Tiene un enlace para crear un nuevo cliente[cite: 1].
+
+5.  **templates/customer/new.html.twig & templates/customer/edit.html.twig**
+
+    * **Propósito:** Son las plantillas que renderizan el formulario para crear o editar un cliente.
+    * **Características:**
+        * [cite_start]El título de la página y el texto del botón se adaptan si la acción es 'Nuevo Cliente' o 'Editar Cliente'[cite: 14, 15, 17, 18, 19, 24, 25, 27, 28, 29].
+        * [cite_start]Muestran el formulario completo (`form_widget`)[cite: 16, 26].
+        * [cite_start]Incluyen un botón para volver al listado de clientes[cite: 20, 30].
